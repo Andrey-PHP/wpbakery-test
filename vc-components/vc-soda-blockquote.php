@@ -18,7 +18,7 @@ class VcRepeaterBlock extends WPBakeryShortCode {
             'name'          => __('Repeater', 'bakerytest'),
             'base'          => 'vc_repeater_block',
             'description'  	=> '',
-            'category'      => __( 'RepeaterBlock Modules', 'bakerytest'),
+            'category'      => __( 'Content', 'bakerytest'),
             'params' => array(
 
                 array(
