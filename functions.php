@@ -3,7 +3,6 @@
 /**
  * Theme css & js
  */
-
 define( 'FRONT_PATH', get_stylesheet_directory_uri() );
 
 function bakerytest_scripts_styles() {
@@ -20,7 +19,9 @@ function bakerytest_scripts_styles() {
 
 add_action( 'wp_enqueue_scripts', 'bakerytest_scripts_styles' );
 
-// Allow upload svg type
+/**
+ * Allow upload svg type
+ */
 function cc_mime_types($mimes) {
     // New allowed mime types.
     $mimes['svg'] = 'image/svg+xml';
@@ -31,5 +32,7 @@ function cc_mime_types($mimes) {
 add_filter( 'upload_mimes', 'cc_mime_types' );
 
 
-// Require new custom Element
+/**
+ * Require new custom Element
+ */
 require_once( get_template_directory().'/vc-components/vc-soda-blockquote.php' );

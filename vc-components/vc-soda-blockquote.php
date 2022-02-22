@@ -1,5 +1,5 @@
 <?php
-class VcSodaBlockquote extends WPBakeryShortCode {
+class VcRepeaterBlock extends WPBakeryShortCode {
 
     function __construct() {
         add_action( 'init', array( $this, 'create_shortcode' ), 999 );
@@ -17,7 +17,7 @@ class VcSodaBlockquote extends WPBakeryShortCode {
         vc_map( array(
             'name'          => __('Repeater', 'bakerytest'),
             'base'          => 'vc_repeater_block',
-            'description'  	=> __( '', 'bakerytest' ),
+            'description'  	=> '',
             'category'      => __( 'RepeaterBlock Modules', 'bakerytest'),
             'params' => array(
 
@@ -39,19 +39,19 @@ class VcSodaBlockquote extends WPBakeryShortCode {
                         array(
                           'type' => 'attach_image',
                           'value' => '',
-                          'heading' => 'Icon',
+                          'heading' => __( 'Icon', 'bakerytest'),
                           'param_name' => 'icon_repeat_item'
                         ),
                         array(
                             'type' => 'textfield',
                             'value' => '',
-                            'heading' => 'Tite',
+                            'heading' => __( 'Tite', 'bakerytest'),
                             'param_name' => 'title',
                         ),
                         array(
-                            'type' => 'textfield',
+                            "type" => "textfield",
                             'value' => '',
-                            'heading' => 'Description',
+                            'heading' => __( 'Description',  'bakerytest'),
                             'param_name' => 'desc',
                         )
                     ),
@@ -69,21 +69,27 @@ class VcSodaBlockquote extends WPBakeryShortCode {
         ), $atts));
 
         //Title
-        $title_block = esc_html($atts['title_block']);
+        $title_block = esc_html($atts['title_block']) ?? '';
         // Items
-        $steps = vc_param_group_parse_atts($atts['steps']);
+        $steps = vc_param_group_parse_atts($atts['steps']) ?? '';
 
         $output = '';
         $output .= '<section class="industries"><h1>' .$title_block. '</h1>';
         $output .= '<div class="four-columns">';
-        foreach ($steps as $el) {
-            $output .= '<div class="col">';
-            $output .= '<div class="image-box">' . wp_get_attachment_image($el['icon_repeat_item'], 'full') . '</div>';
-            $output .= '<div class="text-holder">';
-            $output .= '<strong class="title">' .$el['title'] . '</strong>';
-            $output .= '<p>' .$el['desc'] . '</p>';
-            $output .= '</div>';
-            $output .= '</div>';
+        if (isset($steps)){
+            foreach ($steps as $el) {
+                $el_title = $el['title'] ?? '';
+                $el_desc = $el['desc'] ?? '';
+                $el_icon = $el['icon_repeat_item'] ?? '';
+
+                $output .= '<div class="col">';
+                $output .= '<div class="image-box">' . wp_get_attachment_image($el_icon, 'full') . '</div>';
+                $output .= '<div class="text-holder">';
+                $output .= '<strong class="title">' . $el_title . '</strong>';
+                $output .= '<p>' . $el_desc . '</p>';
+                $output .= '</div>';
+                $output .= '</div>';
+            }
         }
         $output .= '</div>';
         $output .= '</section>';
@@ -94,4 +100,4 @@ class VcSodaBlockquote extends WPBakeryShortCode {
 
 }
 
-new VcSodaBlockquote();
+new VcRepeaterBlock();
